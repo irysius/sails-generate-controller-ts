@@ -1,25 +1,30 @@
 {
   "name": "sails-generate-controller-ts",
-  "version": "0.10.0",
-  "description": "sails generate controller-ts",
+  "version": "0.0.1",
+  "description": "Controller generator for TypeScript use.",
+  "author": "Lester Sy <lestersy@hotmail.com>",
   "main": "Generator.js",
-  "scripts": {
-    "test": "mocha"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/irysius/sails-generate-controller-ts.git"
+  },
+  "bugs": {
+    "url": "http://github.com/irysius/sails-generate-controller-ts/issues"
   },
   "keywords": [
     "controller-ts",
     "generator",
     "sails",
     "generate",
-    "plugin"
+    "plugin",
+    "typescript"
   ],
-  "author": "balderdashy",
   "license": "MIT",
   "dependencies": {
-    "colors": "^1.0.3",
-    "lodash": ">=2.4.x",
-    "merge-defaults": ">=0.1.0",
-    "pluralize": "^1.1.2"
+    "colors": "1.0.3",
+    "lodash": "2.4.x",
+    "merge-defaults": "0.1.0",
+    "pluralize": "1.1.2"
   },
   "devDependencies": {
     "sails-generate": "*",
