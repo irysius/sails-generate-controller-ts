@@ -2,9 +2,8 @@
  * Module dependencies
  */
 
-var util = require('util');
 var _ = require('lodash');
-var fs = require('fs-extra');
+var fs = require('fs');
 var path = require('path');
 _.defaults = require('merge-defaults');
 var pluralize = require('pluralize');
@@ -72,6 +71,10 @@ module.exports = {
     // Pluralize item.
     scope.modelName = pluralize(capitalizedName);
 
+    if (doesControllerExist(scope.rootPath, scope.controllerName)) {
+      return cb( ALREADY_EXISTS(scope.controllerName) );
+    }
+
     // Decide the output filename for use in targets below:
     scope.filename = '/api/controllers/' + scope.controllerName + '.ts';
 
@@ -117,6 +120,11 @@ function INVALID_ROOT_PATH() {
 
 function INVALID_NAME() {
   var message = 'Sorry, you can only generate controller names that are alphabetic.';
+  return message;
+}
+
+function ALREADY_EXISTS(controllerName) {
+  var message = 'A controller of the name ' + controllerName + ' already exists at /api/controllers.';
   return message;
 }
 
@@ -166,6 +174,20 @@ function info(message) {
 var alphabetOnly = new RegExp('[^A-Za-z]');
 function isValidName(name) {
   return !alphabetOnly.exec(name);
+}
+
+function doesControllerExist(rootPath, controllerName) {
+  var rootFiles = fs.readdirSync(rootPath);
+  if (rootFiles.indexOf('api') !== -1) {
+    var apiFiles = fs.readdirSync(path.join(rootPath, 'api'));
+    if (apiFiles.indexOf('controllers') !== -1) {
+      var controllerFiles = fs.readdirSync(path.join(rootPath, 'api', 'controllers'));
+      return (controllerFiles.indexOf(controllerName + '.js') !== -1 || 
+        controllerFiles.indexOf(controllerName + '.ts') !== -1);
+    }
+  }
+
+  return false;
 }
 
 function capitalize(name) {
