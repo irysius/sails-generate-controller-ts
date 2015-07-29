@@ -23,6 +23,8 @@ In order to use a generator you will need the latest Sails, ~0.11, which can be 
 Once that's all set, install the generator:
 
 	$ npm install sails-generate-controller-ts
+	$ tsd init
+	$ tsd install express node --save
 
 ### Production Usage
 
